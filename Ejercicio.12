@@ -1,0 +1,13 @@
+﻿
+mi_matriz = [
+    [1, 5, 9],
+    [1, 5, 9]
+]
+
+def intercambiar_columnas(matriz, col1, col2):
+    for i in range(len(matriz)):
+        matriz[i][col1], matriz[i][col2] = matriz[i][col2], matriz[i][col1]
+    return matriz
+
+print("Matriz con columnas 0 y 2 cambiadas:")
+print(intercambiar_columnas(mi_matriz, 0, 2))

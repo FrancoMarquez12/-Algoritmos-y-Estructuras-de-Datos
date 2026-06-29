@@ -1,0 +1,26 @@
+﻿
+mi_matriz = [
+    [1, 2],
+    [3, 4]
+]
+
+def rotar_derecha(matriz):
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    
+    plana = []
+    for f in matriz:
+        plana.extend(f)
+        
+    ultimo = plana.pop()
+    plana.insert(0, ultimo)
+    
+    nueva_matriz = []
+    idx = 0
+    for i in range(filas):
+        nueva_fila = plana[idx : idx + columnas]
+        nueva_matriz.append(nueva_fila)
+        idx += columnas
+    return nueva_matriz
+
+print("Rotada a la derecha:", rotar_derecha(mi_matriz))

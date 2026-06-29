@@ -1,0 +1,13 @@
+﻿
+mi_matriz = [
+    [1, 5, 3],
+    [2, 10, 4]
+]
+
+def suma_columna(matriz, indice_columna):
+    suma = 0
+    for i in range(len(matriz)):
+        suma += matriz[i][indice_columna]
+    return suma
+
+print("Suma de la columna 1:", suma_columna(mi_matriz, 1))

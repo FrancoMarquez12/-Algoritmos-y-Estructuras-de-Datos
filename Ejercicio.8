@@ -1,0 +1,15 @@
+﻿
+mi_matriz = [
+    [5, 12, 8],
+    [3, 19, 21]
+]
+
+def buscar_entero(matriz, valor):
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            if matriz[i][j] == valor:
+                return (i, j)
+    return None
+
+print("Posicion del 19:", buscar_entero(mi_matriz, 19))
+print("Posicion del 100:", buscar_entero(mi_matriz, 100))

@@ -1,0 +1,17 @@
+﻿mi_matriz = [
+    [10, 5],
+    [42, 0],
+    [3, 33]
+]
+
+def fila_maximo_en_columna(matriz, indice_columna):
+    max_elemento = matriz[0][indice_columna]
+    idx_fila = 0
+    
+    for i in range(1, len(matriz)):
+        if matriz[i][indice_columna] > max_elemento:
+            max_elemento = matriz[i][indice_columna]
+            idx_fila = i
+    return idx_fila
+
+print("Fila del maximo en columna 1:", fila_maximo_en_columna(mi_matriz, 1))

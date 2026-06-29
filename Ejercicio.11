@@ -1,0 +1,13 @@
+﻿
+mi_matriz = [
+    [1, 1, 1],
+    [2, 2, 2],
+    [3, 3, 3]
+]
+
+def intercambiar_filas(matriz, fila1, fila2):
+    matriz[fila1], matriz[fila2] = matriz[fila2], matriz[fila1]
+    return matriz
+
+print("Matriz con filas 0 y 2 cambiadas:")
+print(intercambiar_filas(mi_matriz, 0, 2))

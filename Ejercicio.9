@@ -1,0 +1,13 @@
+﻿
+mi_matriz = [
+    [1, 1, 1],
+    [10, 20, 30]
+]
+
+def suma_fila(matriz, indice_fila):
+    suma = 0
+    for elemento in matriz[indice_fila]:
+        suma += elemento
+    return suma
+
+print("Suma de la fila 1:", suma_fila(mi_matriz, 1))

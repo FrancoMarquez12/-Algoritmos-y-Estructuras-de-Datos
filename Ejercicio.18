@@ -1,0 +1,19 @@
+﻿
+mi_matriz = [
+    [1.0, 2.0, 3.0],
+    [4.0, 5.0, 6.0]
+]
+
+def transponer_matriz(matriz):
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    # Las dimensiones se invierten en la matriz destino
+    resultado = [[0.0 for _ in range(filas)] for _ in range(columnas)]
+    
+    for i in range(filas):
+        for j in range(columnas):
+            resultado[j][i] = matriz[i][j]
+    return resultado
+
+print("Matriz transpuesta:")
+print(transponer_matriz(mi_matriz))

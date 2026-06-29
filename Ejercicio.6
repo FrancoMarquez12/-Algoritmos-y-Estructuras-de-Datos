@@ -1,0 +1,19 @@
+﻿
+mi_matriz = [
+    [1, 2, 3],
+    [4, 99, 6],
+    [7, 8, 9]
+]
+
+def columna_maximo_absoluto(matriz):
+    max_elemento = matriz[0][0]
+    idx_columna = 0
+    
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            if matriz[i][j] > max_elemento:
+                max_elemento = matriz[i][j]
+                idx_columna = j
+    return idx_columna
+
+print("Columna del maximo absoluto:", columna_maximo_absoluto(mi_matriz))
