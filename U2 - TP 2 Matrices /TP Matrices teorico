@@ -1,0 +1,155 @@
+1-Definiciones.
+
+¿Qué es una matriz en el contexto de la programación y las matemáticas?
+
+En matemáticas, una matriz se define como un conjunto bidimensional de números ordenados en filas y columnas.
+En otras palabras, es una tabla rectangular de elementos (generalmente números) dispuestos en m filas y n
+columnas . Por ejemplo, una matriz de 3 filas y 4 columnas es un arreglo de números con 3 filas de datos y 4
+columnas. Matemáticamente se denota típicamente con una letra mayúscula (por ejemplo, A) y sus elementos con
+la misma letra en minúscula con dos subíndices: el primero indica la fila y el segundo la columna del elemento.
+Quedando:, a_{ij} representa el elemento (o posición actual) en la fila i y columna j de la matriz A.
+
+En programación, una matriz (también conocida como arreglo bidimensional) es una estructura de datos que
+almacena elementos en una cuadrícula de filas y columnas. Se puede pensar en ella como una tabla en la que cada
+casilla contiene un valor . Estos valores pueden ser números, caracteres, objetos u otros tipos de datos, según lo
+permita el lenguaje . Lo importante es que los elementos están organizados en dos dimensiones, lo que facilita su
+acceso y manipulación mediante dos índices (uno para la fila y otro para la columna) . En muchos lenguajes de
+programación, las matrices requieren que todos sus elementos sean del mismo tipo (por ejemplo, todos enteros, o
+todos flotantes), y se accede a cada elemento mediante dos índices: primero el índice de fila y luego el de columna.
+
+
+1.1-¿Cómo se representa una matriz de dos dimensiones en un lenguaje de programación (por ejemplo, Python, Java, C++)? Explica las estructuras de datos comunes utilizadas.
+
+Python: En Python, una matriz puede representarse usando una lista de listas (listas anidadas), donde cada sublista corresponde a una fila de la matriz. 
+Por ejemplo, matrix = [[1, 2, 3], [4, 5, 6]] representa una matriz de 2 filas por 3 columnas. Alternativamente, se pueden usar bibliotecas especializadas como NumPy, que provee el tipo numpy.ndarray para manipular matrices de manera eficiente. 
+En cualquier caso, el acceso a un elemento se realiza indicando primero el índice de fila y luego el de columna, por ejemplo matrix[fila][columna] .
+
+
+
+Java: En Java, las matrices se implementan con arreglos bidimensionales. Por ejemplo, int[][] M = new int[3] [4]; declara una matriz de enteros de 3 filas por 4 columnas. Internamente, Java lo maneja como un arreglo de arreglos, donde M[i] es el arreglo que representa la i-ésima fila, y cada M[i][j] es un elemento específico. 
+También es posible usar estructuras como ArrayList de ArrayList para matrices dinámicas, pero el mecanismo base sigue siendo usar dos índices ([i][j]) para filas y columnas respectivamente.
+C/C++: En C y C++, se pueden utilizar arreglos multidimensionales para representar matrices. Por ejemplo, en C++ int M[3][4]; define una matriz de 3x4 de enteros. 
+Otra alternativa en C++ es usar std::vector anidado, e.g. std::vector<std::vector<int>> M(m, std::vector<int>(n)); , lo que permite dimensiones dinámicas. 
+Al igual que en otros lenguajes, el acceso es mediante dos índices: M[i][j] da el elemento en la
+i-ésima fila y j-ésima columna. 
+En C, las matrices también son arreglos estáticos (o punteros a punteros para matrices dinámicas), accesibles de forma similar ( M[i][j] ). 
+En todos los casos, se mantiene la convención de dos índices: primero fila, luego columna.
+
+
+1.2-¿Qué son las dimensiones de una matriz? Si tienes una matriz A con m filas y n
+columnas, ¿cómo se denota su tamaño?
+
+Las dimensiones de una matriz se refieren al número de filas (m) y columnas (n) que ésta posee. Si una matriz A tiene m filas y n columnas, decimos que A es de tamaño m x n (se lee "m por n").
+Por ejemplo, una matriz A de tamaño 3 x 5 tiene 3 filas y 5 columnas. Esta notación m x n se utiliza para describir la forma o orden de la matriz. 
+Dos matrices con las mismas dimensiones (m x n) se consideran del mismo tamaño, lo cual es relevante para determinar qué operaciones se pueden realizar entre ellas (como
+veremos en las secciones de suma y multiplicación).
+Es importante destacar que, por convención, el tamaño m × n siempre indica primero el número de filas (m) y luego el número de columnas (n). 
+Por ejemplo, si A es 3 x 4, entonces A tiene 3 filas y 4 columnas. 
+Dos matrices son iguales si tienen el mismo tamaño y además los mismos elementos en cada posición correspondiente.
+
+
+1.3-Principales diferencias entre matrices y vectores (cuadro,)
+
+⋅Dimensionalidad: Un vector es una estructura de una sola dimensión (puede verse como una lista unidimensional de elementos), mientras que una matriz es bidimensional (organizada en filas y columnas).
+Por ejemplo, un vector de 5 elementos puede considerarse una matriz de 1x5 (una fila) o 5x1 (una columna), pero normalmente al hablar de vectores nos referimos a una lista lineal de valores, no a una tabla rectangular.
+
+⋅Notación: Para vectores se suele utilizar notación con un solo subíndice (v_i sería el $i$-ésimo componente de un vector v), mientras que para matrices se emplean dos subíndices (a_{ij} es el elemento en fila i, columna j de una matriz A). 
+En programación, un vector se accedería con una sola posición indexada (e.g. v[i] ), mientras que una matriz requiere dos índices ( M[i][j] ).
+
+⋅Operaciones: Las operaciones definidas para matrices (como multiplicación de matrices) no siempre aplican directamente a vectores a menos que los consideremos como matrices de una fila o una columna. 
+Por ejemplo, la multiplicación de matrices no está definida para dos vectores "puros" a menos que uno se interprete como matriz fila y el otro como matriz columna (lo que resulta en un producto escalar o un producto externo dependiendo de cómo se usen). 
+En cambio, con vectores hablamos de operaciones como el producto punto, que es un caso particular de multiplicación matricial.
+⋅Interpretación geométrica: En matemáticas, un vector suele interpretarse como una magnitud con dirección (en un espacio unidimensional, bidimensional, etc.), mientras que una matriz puede representar una transformación lineal o una relación entre conjuntos de datos (como en sistemas de ecuaciones).
+Esta diferencia de interpretación va más allá de la programación, pero es útil tener contexto: un vector es un listado de valores (por ejemplo, coordenadas), y una matriz puede verse como varios vectores organizados (cada fila podría ser un vector, por ejemplo, representando varios puntos de datos).
+
+
+
+2- Elementos y posiciones de una matriz.
+
+¿Cómo se accede a un elemento específico dentro de una matriz? Si una matriz se llama M,
+¿cómo se representa la posición de un elemento en la fila i y columna j?
+
+Para identificar un elemento específico de una matriz, se utilizan dos índices que indican su posición: el índice de fila y el índice de columna. 
+Matemáticamente, como se mencionó, se suele denotar el elemento en la fila i y columna j como a_{ij} o (A)_{ij} si la matriz es A. 
+En notación de programación (y también común en textos informales), se escribe M[i][j] para referirse al elemento que está en la i-ésima fila y j-ésima columna de la matriz M.
+Por ejemplo, si tenemos una matriz M , la expresión M[2][5] representaría el elemento ubicado en la fila 2 y columna 5 de M (considerando alguna convención de indexación, típicamente las filas y columnas podrían numerarse desde 0 en programación o desde 1 en matemáticas según el contexto).
+
+
+2.1-¿Es importante el orden de los índices (fila, columna) al acceder a un elemento? Explica
+por qué.
+
+Es fundamental respetar el orden de los índices como (fila, columna). Primero se especifica la fila y luego la columna. 
+Si invirtiéramos este orden, estaríamos refiriéndonos a otro elemento (por ejemplo, M[j][i] es en general diferente de M[i][j]). 
+En lenguajes de programación, usar M[j][i] en lugar de M[i][j] puede llevar a un resultado incorrecto o incluso a un error (si i y j exceden las dimensiones en ese orden).
+En resumen, la posición de un elemento en la matriz M se representa como M[i][j], indicando explícitamente fila i y columna j en ese orden.
+Para referirse a un elemento específico de la matriz M se usa la forma M[i][j], donde i es la fila y j la columna.
+
+
+
+3- Tipos de matrices. Define qué es una matriz cuadrada.
+3.1-¿Qué es una matriz fila y una matriz columna?
+3.2-¿Qué es una matriz nula?
+
+Matriz cuadrada: mismo número de filas y columnas (n × n).
+
+Matriz fila: solo una fila (1 × n) .
+Una matriz fila es una matriz que tiene una sola fila. 
+En otras palabras, su dimensión es 1 x n (una fila con n columnas)uv.mx. Por ejemplo, [, 7 ;; 4 ;; 0 ;; -3 ,] es una matriz fila de 1x4.
+
+Matriz columna: solo una columna (m × 1).
+
+Matriz nula: todos sus elementos son cero; se denota 0_m×n .
+
+
+4- Operaciones básicas: Suma
+¿Cuál es la condición fundamental para poder sumar o restar dos matrices?
+
+Para poder sumar (o restar) dos matrices, ambas deben tener el mismo tamaño, es decir, el mismo número de filas y el mismo número de columnas. 
+Esta es la condición fundamental. 
+Si una matriz A es de dimensión m x n y B es otra matriz de dimensión p x q, entonces para que A + B (o A - B) esté definida, se requiere que m=p y n=q.
+En otras palabras, Ay Bdeben ser del mismo orden. 
+Por ejemplo, una matriz 2 x 3 sólo puede sumarse con otra matriz 2 x 3. 
+No es posible sumar una matriz de 2 x 3 con una de 2 x 2 u 3 x 3, puesto que sus dimensiones difieren y no hay correspondencia uno-a-uno entre todos sus elementos.
+
+
+4.1-Si tienes dos matrices A y B del mismo tamaño, ¿cómo se realiza la operación de suma A + B? Describe el proceso a nivel de elementos.
+
+Procedimiento: la matriz resultado C se obtiene sumando (o restando) elemento a elemento
+C_ij = A_ij + B_ij .
+
+
+5- Operaciones básicas: Multiplicación
+¿Cuál es la condición fundamental para poder multiplicar dos matrices A y B (es decir,
+calcular A * B)?
+
+Condición: el número de columnas de A debe coincidir con el número de filas de B.
+
+
+5.1-Si la matriz A es de tamaño m×n y la matriz B es de tamaño p×q, ¿cuáles deben ser los
+valores de n y p para que la multiplicación sea posible? ¿Cuál será el tamaño de la matriz
+resultante C?
+
+
+Si A es m × n y B es n × q, entonces el producto C = A·B existe y será m × q.
+
+
+5.2-Explica conceptualmente cómo se calcula un elemento C[i][j] de la matriz producto.
+
+C_ij = suma para k de 1 a n de ( A_ik × B_kj ).
+
+
+6- Otros
+
+¿Es posible realizar el videojuego ‘Tetris’ utilizando matrices? Justifique su respuesta.
+
+Por lo que pude comprender si.
+Tetris, también con Ajedrez, Buscaminas, Pac-Man y los juegos RPG basados en
+casillas utilizan una matriz para representar el escenario.
+Ya que usando matrices se pudo dar 8 páginas completas explicando cómo es posible recrear el buscaminas, deduzco que usando una matriz lógica y una matriz de estado el Tetris no está tan alejado a este.
+
+
+-6.1-Qué tipos de datos puede almacenar una matriz?
+
+Una matriz puede almacenar números, letras, objetos o cualquier otro tipo de dato, según lo que se necesite.
+Lo que hace poderosa a la matriz es su capacidad de organizar esos datos en una forma
+tabular de dos dimensiones.
