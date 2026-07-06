@@ -26,7 +26,7 @@ namespace TiendaLoona
             // Lista global para almacenar los elementos
             List<Album> inventario = new List<Album>();
             bool continuar = true;
-            
+
             while (continuar)
             {
                 Console.WriteLine("\n--- SISTEMA DE GESTIÓN DE ÁLBUMES (REDEBUTS LOONA) ---");
@@ -53,7 +53,7 @@ namespace TiendaLoona
                         int Cantidad = 0;
                         double Precio = 0;
 
-                        Console.WriteLine("\n[1. REGISTRAR NUEVO ÁLBUM]");
+                        Console.WriteLine("\n[1. REGISTRAR NUEVO ALBUM]");
                         Console.WriteLine("Ingrese el nombre de ese album.");
                         Nombre = Console.ReadLine();
                         Console.WriteLine("Ingrese la cantidad de copias de ese album.");
@@ -90,43 +90,129 @@ namespace TiendaLoona
                         {
                             double sumaPrecios = 0;
                             foreach (Album album in inventario)
-
+                            {
                                 sumaPrecios += album.Precio;
+                            }
 
                             double promedio = sumaPrecios / inventario.Count;
-
                             Console.WriteLine($"El promedio de los albumes es {promedio:F2}");
                         }
                         break;
 
                     case 4:
-                        Console.WriteLine("\n[4. BUSCAR ÁLBUM POR NOMBRE]");
+                        Console.WriteLine("\n[4. BUSCAR ALBUM POR NOMBRE]");
+                        if (inventario.Count == 0)
+                        {
+                            Console.WriteLine("El inventario esta vacio.");
+                        }
+                        else
+                        {
+                            Console.Write("Ingrese el nombre del album a buscar: ");
+                            string busqueda = Console.ReadLine();
+                            bool encontrado = false;
 
-                        // TODO: Solicitar string, buscar la coincidencia exacta o parcial y mostrarlo
+                            foreach (Album album in inventario)
+                            {
+                                if (album.Nombre.Contains(busqueda, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Console.WriteLine($"- Encontrado: {album.Nombre} | Stock: {album.Cantidad} | Precio: {album.Precio}");
+                                    encontrado = true;
+                                }
+                            }
+
+                            if (!encontrado)
+                            {
+                                Console.WriteLine("No se encontro ningun album que coincida.");
+                            }
+                        }
                         break;
 
                     case 5:
-                        Console.WriteLine("\n[5. ÁLBUMES QUE SUPERAN EL PROMEDIO]");
-                        // TODO: Filtrar y mostrar los álbumes cuyo precio sea mayor al promedio calculado
+                        Console.WriteLine("\n[5. ALBUMES QUE SUPERAN EL PROMEDIO]");
+                        if (inventario.Count == 0)
+                        {
+                            Console.WriteLine("El inventario esta vacio.");
+                        }
+                        else
+                        {
+                            double sumaFiltrar = 0;
+                            foreach (Album album in inventario)
+                            {
+                                sumaFiltrar += album.Precio;
+                            }
+                            double promActual = sumaFiltrar / inventario.Count;
+                            Console.WriteLine($"El precio promedio actual es: {promActual:F2}\n");
+
+                            bool haySuperiores = false;
+                            foreach (Album album in inventario)
+                            {
+                                if (album.Precio > promActual)
+                                {
+                                    Console.WriteLine($"{album.Nombre} | Precio: {album.Precio} (Supera el promedio)");
+                                    haySuperiores = true;
+                                }
+                            }
+
+                            if (!haySuperiores)
+                            {
+                                Console.WriteLine("Ningun album supera el precio promedio.");
+                            }
+                        }
                         break;
 
                     case 6:
-                        Console.WriteLine("\n[6. ÁLBUM MÁS CARO Y MÁS BARATO]");
-                        // TODO: Encontrar el elemento con el 'Precio' más alto y el más bajo
+                        Console.WriteLine("\n[6. ALBUM MAS CARO Y MAS BARATO]");
+                        if (inventario.Count == 0)
+                        {
+                            Console.WriteLine("El inventario esta vacio.");
+                        }
+                        else
+                        {
+                            Album masCaro = inventario[0];
+                            Album masBarato = inventario[0];
+
+                            for (int i = 1; i < inventario.Count; i++)
+                            {
+                                if (inventario[i].Precio > masCaro.Precio) masCaro = inventario[i];
+                                if (inventario[i].Precio < masBarato.Precio) masBarato = inventario[i];
+                            }
+
+                            Console.WriteLine($"Album mas caro: {masCaro.Nombre} - Precio: {masCaro.Precio}");
+                            Console.WriteLine($"Album mas barato: {masBarato.Nombre} - Precio: {masBarato.Precio}");
+                        }
                         break;
 
                     case 7:
-                        Console.WriteLine("\n[7. ELIMINAR ÁLBUM DEL REGISTRO]");
-                        // TODO: Solicitar nombre, buscar en la lista y remover el struct correspondiente
+                        Console.WriteLine("\n[7. ELIMINAR ALBUM DEL REGISTRO]");
+                        if (inventario.Count == 0)
+                        {
+                            Console.WriteLine("El inventario esta vacio.");
+                        }
+                        else
+                        {
+                            Console.Write("Ingrese el nombre exacto del album a eliminar: ");
+                            string nombreEliminar = Console.ReadLine();
+
+                            int indiceAEliminar = inventario.FindIndex(a => a.Nombre.Equals(nombreEliminar, StringComparison.OrdinalIgnoreCase));
+
+                            if (indiceAEliminar != -1)
+                            {
+                                inventario.RemoveAt(indiceAEliminar);
+                                Console.WriteLine($"El album '{nombreEliminar}' ha sido eliminado exitosamente.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("No se encontro ningun album con ese nombre exacto.");
+                            }
+                        }
                         break;
 
                     case 8:
-                        Console.WriteLine("\n¡Gracias por utilizar el sistema de la tienda! Saliendo...");
                         continuar = false;
                         break;
 
                     default:
-                        Console.WriteLine("Opción inválida. Intente de nuevo.");
+                        Console.WriteLine("Opcion invalida. Intente de nuevo.");
                         break;
                 }
             }
