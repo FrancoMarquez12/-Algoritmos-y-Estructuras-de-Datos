@@ -1,17 +1,32 @@
-﻿mi_matriz = [
-    [10, 42, 3],
-    [5, 0, 33]
-]
+﻿using System;
 
-def columna_maximo_en_fila(matriz, indice_fila):
-    fila = matriz[indice_fila]
-    max_elemento = fila[0]
-    idx_columna = 0
-    
-    for j in range(1, len(fila)):
-        if fila[j] > max_elemento:
-            max_elemento = fila[j]
-            idx_columna = j
-    return idx_columna
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 10, 42, 3 },
+            { 5, 0, 33 }
+        };
 
-print("Columna del maximo en fila 0:", columna_maximo_en_fila(mi_matriz, 0))
+        Console.WriteLine("Columna del maximo en fila 0: " + ColumnaMaximoEnFila(miMatriz, 0));
+    }
+
+    static int ColumnaMaximoEnFila(int[,] matriz, int indiceFila)
+    {
+        int maxElemento = matriz[indiceFila, 0];
+        int idxColumna = 0;
+        int columnas = matriz.GetLength(1);
+
+        for (int j = 1; j < columnas; j++)
+        {
+            if (matriz[indiceFila, j] > maxElemento)
+            {
+                maxElemento = matriz[indiceFila, j];
+                idxColumna = j;
+            }
+        }
+
+        return idxColumna;
+    }
+}
