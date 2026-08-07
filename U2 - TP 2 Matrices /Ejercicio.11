@@ -1,13 +1,26 @@
-﻿
-mi_matriz = [
-    [1, 1, 1],
-    [2, 2, 2],
-    [3, 3, 3]
-]
+using System;
 
-def intercambiar_filas(matriz, fila1, fila2):
-    matriz[fila1], matriz[fila2] = matriz[fila2], matriz[fila1]
-    return matriz
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 1, 1, 1 },
+            { 2, 2, 2 },
+            { 3, 3, 3 }
+        };
 
-print("Matriz con filas 0 y 2 cambiadas:")
-print(intercambiar_filas(mi_matriz, 0, 2))
+        int[,] resultado = IntercambiarFilas(miMatriz, 0, 2);
+
+        Console.WriteLine("Matriz con filas 0 y 2 cambiadas:");
+        ImprimirMatriz(resultado);
+    }
+
+    static int[,] IntercambiarFilas(int[,] matriz, int fila1, int fila2)
+    {
+        int columnas = matriz.GetLength(1);
+
+        for (int j = 0; j < columnas; j++)
+        {
+            int temp = matriz[fila1, j];
+            matriz
