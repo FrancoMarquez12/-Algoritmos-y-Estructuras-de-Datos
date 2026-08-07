@@ -1,15 +1,37 @@
-﻿
-mi_matriz = [
-    [5, 12, 8],
-    [3, 19, 21]
-]
+﻿using System;
 
-def buscar_entero(matriz, valor):
-    for i in range(len(matriz)):
-        for j in range(len(matriz[i])):
-            if matriz[i][j] == valor:
-                return (i, j)
-    return None
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 5, 12, 8 },
+            { 3, 19, 21 }
+        };
 
-print("Posicion del 19:", buscar_entero(mi_matriz, 19))
-print("Posicion del 100:", buscar_entero(mi_matriz, 100))
+        var res1 = BuscarEntero(miMatriz, 19);
+        Console.WriteLine("Posicion del 19: " + (res1.HasValue ? $"({res1.Value.fila}, {res1.Value.col})" : "None"));
+
+        var res2 = BuscarEntero(miMatriz, 100);
+        Console.WriteLine("Posicion del 100: " + (res2.HasValue ? $"({res2.Value.fila}, {res2.Value.col})" : "None"));
+    }
+
+    static (int fila, int col)? BuscarEntero(int[,] matriz, int valor)
+    {
+        int filas = matriz.GetLength(0);
+        int columnas = matriz.GetLength(1);
+
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                if (matriz[i, j] == valor)
+                {
+                    return (i, j);
+                }
+            }
+        }
+
+        return null;
+    }
+}
