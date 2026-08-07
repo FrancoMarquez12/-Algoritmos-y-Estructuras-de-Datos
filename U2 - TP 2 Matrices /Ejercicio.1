@@ -1,13 +1,29 @@
-﻿mi_matriz = [
-    [1, 2, 3],
-    [4, 5, 6]
-]
+﻿using System;
 
-def suma_matriz(matriz):
-    suma = 0
-    for fila in matriz:
-        for elemento in fila:
-            suma += elemento
-    return suma
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 1, 2, 3 },
+            { 4, 5, 6 }
+        };
 
-print("Suma total:", suma_matriz(mi_matriz))
+        Console.WriteLine("Suma total: " + SumaMatriz(miMatriz));
+    }
+
+    static int SumaMatriz(int[,] matriz)
+    {
+        int suma = 0;
+
+        for (int i = 0; i < matriz.GetLength(0); i++)
+        {
+            for (int j = 0; j < matriz.GetLength(1); j++)
+            {
+                suma += matriz[i, j];
+            }
+        }
+
+        return suma;
+    }
+}
