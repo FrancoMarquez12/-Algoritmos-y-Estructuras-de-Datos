@@ -1,19 +1,28 @@
-﻿
-mi_matriz = [
-    [1, 2, 3],
-    [4, 99, 6],
-    [7, 8, 9]
-]
+﻿using System;
 
-def fila_maximo_absoluto(matriz):
-    max_elemento = matriz[0][0]
-    idx_fila = 0
-    
-    for i in range(len(matriz)):
-        for j in range(len(matriz[i])):
-            if matriz[i][j] > max_elemento:
-                max_elemento = matriz[i][j]
-                idx_fila = i
-    return idx_fila
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 1, 2, 3 },
+            { 4, 99, 6 },
+            { 7, 8, 9 }
+        };
 
-print("Fila del maximo absoluto:", fila_maximo_absoluto(mi_matriz))
+        Console.WriteLine("Fila del maximo absoluto: " + FilaMaximoAbsoluto(miMatriz));
+    }
+
+    static int FilaMaximoAbsoluto(int[,] matriz)
+    {
+        int maxElemento = matriz[0, 0];
+        int idxFila = 0;
+
+        int filas = matriz.GetLength(0);
+        int columnas = matriz.GetLength(1);
+
+        for (int i = 0; i < filas; i++)
+        {
+            for (int j = 0; j < columnas; j++)
+            {
+                if (matriz
