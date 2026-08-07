@@ -1,19 +1,27 @@
-﻿
-mi_matriz = [
-    [1, 2, 3],
-    [4, 99, 6],
-    [7, 8, 9]
-]
+﻿using System;
 
-def posicion_maximo_absoluto(matriz):
-    max_elemento = matriz[0][0]
-    posicion = (0, 0)
-    
-    for i in range(len(matriz)):
-        for j in range(len(matriz[i])):
-            if matriz[i][j] > max_elemento:
-                max_elemento = matriz[i][j]
-                posicion = (i, j)
-    return posicion
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 1, 2, 3 },
+            { 4, 99, 6 },
+            { 7, 8, 9 }
+        };
 
-print("Posicion (fila, col) del maximo:", posicion_maximo_absoluto(mi_matriz))
+        var pos = PosicionMaximoAbsoluto(miMatriz);
+        Console.WriteLine($"Posicion (fila, col) del maximo: ({pos.fila}, {pos.col})");
+    }
+
+    static (int fila, int col) PosicionMaximoAbsoluto(int[,] matriz)
+    {
+        int maxElemento = matriz[0, 0];
+        (int fila, int col) posicion = (0, 0);
+
+        int filas = matriz.GetLength(0);
+        int columnas = matriz.GetLength(1);
+
+        for (int i = 0; i < filas; i++)
+        {
+            for (int
