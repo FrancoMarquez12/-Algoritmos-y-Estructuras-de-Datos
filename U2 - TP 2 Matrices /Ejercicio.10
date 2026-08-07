@@ -1,13 +1,27 @@
-﻿
-mi_matriz = [
-    [1, 5, 3],
-    [2, 10, 4]
-]
+using System;
 
-def suma_columna(matriz, indice_columna):
-    suma = 0
-    for i in range(len(matriz)):
-        suma += matriz[i][indice_columna]
-    return suma
+class Program
+{
+    static void Main()
+    {
+        int[,] miMatriz = {
+            { 1, 5, 3 },
+            { 2, 10, 4 }
+        };
 
-print("Suma de la columna 1:", suma_columna(mi_matriz, 1))
+        Console.WriteLine("Suma de la columna 1: " + SumaColumna(miMatriz, 1));
+    }
+
+    static int SumaColumna(int[,] matriz, int indiceColumna)
+    {
+        int suma = 0;
+        int filas = matriz.GetLength(0);
+
+        for (int i = 0; i < filas; i++)
+        {
+            suma += matriz[i, indiceColumna];
+        }
+
+        return suma;
+    }
+}
