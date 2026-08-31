@@ -1,0 +1,14 @@
+Struct: Para definir el modelo de un Videojuego (Id, Titulo, Precio, Stock) y un cliente (Id, Juego deseado, Turno).
+Los Structs son una colección indexada que almacena múltiples instancias de un tipo de valor personalizado en un bloque de memoria. 
+Se utilizan distintos para almacenar esas instancias para dos entidades diferentes los Clientes, y los Videojuegos.
+
+Clases (class): Para encapsular las funciones del programa (módulos) y organizar la
+ejecución principal (como Program.cs, GestionInventario.cs). Se utiliza como Inventario y para cargar datos de los videojuegos como sus respectivos precios, nombres, etc.
+Este se almacena en un Array y con una llamada se pueden mostrar los datos en caso de haber un videojuego presente en dicho inventario.
+
+Arrays (Vectores): Es una estructura de datos lineal que almacena una colección de elementos del mismo tipo en posiciones de memoria contiguas accesibles mediante un índice entero.
+Aca es utilizado para almacenar un listado con límite fijo de productos o categorías para el catálogo dentro del Class Inventario, conteniendo juegos con sus nombres, precios, stocks, ids, y categorías.
+
+Matrices (Arrays Bidimensionales): Para llevar el registro de ventas por categoría y mes o para mapear el estado de estantes/góndolas de la tienda (Filas: Estantes,Columnas: Posiciones).
+
+Colas (Queue<T>): Para gestionar la atención al cliente por orden de llegada (First-In, First-Out).
