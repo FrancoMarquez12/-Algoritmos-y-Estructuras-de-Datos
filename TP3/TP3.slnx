@@ -1,3 +1,327 @@
-<Solution>
-  <Project Path="TP3/TP3.csproj" />
-</Solution>
+using System;
+
+namespace Pixelverse
+{
+    class Program
+    {
+
+        public struct Juegos
+        {
+            public int ID;
+            public string Nombre;
+            public int Stock;
+            public double Precio;
+            public string Categoria; //OPCIONAL
+        }
+
+        public struct Cliente
+        {
+            public int ID;
+            public int IDproductoDeseado;
+
+            /*
+            public string Nombre; //OPCIONAL
+            public string Apellido; //OPCIONAL
+            public int Numero; //OPCIONAL */
+
+        }
+
+
+
+        public static class Inventario
+        {
+
+            public static void Mostrar(Juegos[] catalogo)
+            {
+                Console.WriteLine("ID\t\tPRECIO\t\tSTOCK\t\tNOMBRE");
+
+                for (int i = 0; i < catalogo.Length; i++)
+                {
+
+
+                    Console.WriteLine($"{catalogo[i].ID}\t\t{catalogo[i].Precio}\t\t{catalogo[i].Stock}\t\t{catalogo[i].Nombre}");
+
+
+                }
+
+            }
+
+            public static void CargarCatalogoInicial(Juegos[] catalogo)
+            {
+                string nombre;
+                double precio;
+                Console.WriteLine("Ingresa el nombre del juego");
+                nombre = Console.ReadLine();
+
+                catalogo[0] = new Juegos { ID = 1, Nombre = nombre, Stock = 3, Precio = 14.99, Categoria = "Accion/Mundo Abierto" };
+                catalogo[1] = new Juegos { ID = 2, Nombre = "Far Cry 4", Stock = 7, Precio = 4.99, Categoria = "Accion/Mundo Abierto" };
+                catalogo[2] = new Juegos { ID = 3, Nombre = "GTA V", Stock = 3, Precio = 14.99, Categoria = "Accion/Mundo Abierto" };
+                catalogo[3] = new Juegos { ID = 4, Nombre = "FIFA 24", Stock = 7, Precio = 4.99, Categoria = "Deportes" };
+
+
+            }
+
+            public static int BuscarPorId(Juegos[] catalogo, int idBuscado)
+            {
+                for (int i = 0; i < catalogo.Length; i++)
+                {
+                    if (catalogo[i].ID == idBuscado)
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            public static int BuscarPorTitulo(Juegos[] catalogo, string tituloBuscado)
+            {
+                for (int i = 0; i < catalogo.Length; i++)
+                {
+                    if (catalogo[i].Nombre != null && catalogo[i].Nombre.Equals(tituloBuscado, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+        }
+
+        public class Carrito
+        {
+
+            public int ID { get; set; }
+
+            public static void Agregar(int IDJuego, Juegos[] catalogo)
+            {
+                int cantidadJuegos = 0;
+                string[] nombreJuegosEnCarrito = new string[10];
+
+                Console.WriteLine($"Agregando al carrito {catalogo[IDJuego].Nombre}");
+                catalogo[IDJuego].Stock--;
+                cantidadJuegos++;
+
+
+                nombreJuegosEnCarrito[cantidadJuegos] += catalogo[IDJuego].Nombre;
+
+                Console.WriteLine("Carrito actual:");
+
+                foreach (string s in nombreJuegosEnCarrito)
+                {
+                    Console.WriteLine(s);
+                }
+
+            }
+            public static void Modificar()
+            {
+                Console.WriteLine("Modificar carrito.");
+                Console.WriteLine("Carrito actual: ");
+            }
+        }
+
+        public static class Deposito
+        {
+            public static void CargarGondolas(string[,] gondolas)
+            {
+                gondolas[0, 0] = "Juego Fila 1 Estante 1";
+                gondolas[0, 1] = "Far Cry 4";
+                gondolas[0, 2] = "GTA V";
+                gondolas[1, 0] = "FIFA 24";
+                gondolas[1, 1] = "NBA 2K24";
+                gondolas[1, 2] = "Madden 24";
+                gondolas[2, 0] = "Minecraft";
+                gondolas[2, 1] = "Terraria";
+                gondolas[2, 2] = "Zelda";
+            }
+
+            public static void ConsultarUbicacion(string[,] gondolas, int fila, int columna)
+            {
+                if (fila >= 0 && fila < gondolas.GetLength(0) && columna >= 0 && columna < gondolas.GetLength(1))
+                {
+                    Console.WriteLine($"En el Pasillo {fila + 1}, Estante {columna + 1} se encuentra: {gondolas[fila, columna]}");
+                }
+                else
+                {
+                    Console.WriteLine("Coordenadas fuera de rango.");
+                }
+            }
+        }
+
+        public static class AtencionClientes
+        {
+            public static void RegistrarCliente(Queue<Cliente> cola, ref int contadorId)
+            {
+                Console.Write("Ingrese el ID del juego deseado: ");
+                if (int.TryParse(Console.ReadLine(), out int idJuego))
+                {
+                    Cliente nuevo = new Cliente { ID = contadorId++, IDproductoDeseado = idJuego };
+                    cola.Enqueue(nuevo);
+                    Console.WriteLine($"Cliente asignado con el Turno #{nuevo.ID} a la fila.");
+                }
+                else
+                {
+                    Console.WriteLine("Entrada invalida.");
+                }
+            }
+
+            public static void MostrarEstadoCola(Queue<Cliente> cola)
+            {
+                if (cola.Count > 0)
+                {
+                    Cliente siguiente = cola.Peek();
+                    Console.WriteLine($"Clientes en fila: {cola.Count}");
+                    Console.WriteLine($"Siguiente a atender: Cliente Turno #{siguiente.ID} (Busca producto ID: {siguiente.IDproductoDeseado})");
+                }
+                else
+                {
+                    Console.WriteLine("La cola esta vacia.");
+                }
+            }
+
+            public static void AtenderCliente(Queue<Cliente> cola, Juegos[] catalogo)
+            {
+                if (cola.Count == 0)
+                {
+                    Console.WriteLine("No hay clientes en la cola.");
+                    return;
+                }
+
+                Cliente atendido = cola.Dequeue();
+                Console.WriteLine($"Atendiendo al cliente Turno #{atendido.ID}...");
+
+                int pos = Inventario.BuscarPorId(catalogo, atendido.IDproductoDeseado);
+                if (pos != -1)
+                {
+                    if (catalogo[pos].Stock > 0)
+                    {
+                        catalogo[pos].Stock--;
+                        Console.WriteLine($"Venta procesada. Producto entregado: {catalogo[pos].Nombre}. Stock restante: {catalogo[pos].Stock}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sin stock suficiente para el juego '{catalogo[pos].Nombre}'.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("El producto solicitado no existe en el catálogo.");
+                }
+            }
+        }
+
+
+        static void Main()
+        {
+
+            Juegos[] catalogo = new Juegos[5];
+
+
+            Inventario.CargarCatalogoInicial(catalogo);
+
+            Inventario.Mostrar(catalogo);
+
+
+            Carrito.Agregar(2, catalogo);
+
+            Inventario.Mostrar(catalogo);
+
+            Carrito.Agregar(1, catalogo);
+
+            Inventario.Mostrar(catalogo);
+
+            Carrito.Agregar(0, catalogo);
+
+            Inventario.Mostrar(catalogo);
+
+            string[,] gondolas = new string[3, 3];
+            Queue<Cliente> colaClientes = new Queue<Cliente>();
+            int contadorClientes = 1;
+
+            Deposito.CargarGondolas(gondolas);
+
+            int opcion = 0;
+            do
+            {
+                Console.WriteLine("\n1. Ver catalogo e inventario");
+                Console.WriteLine("2. Buscar juego (ID o Titulo)");
+                Console.WriteLine("3. Consultar gondolas");
+                Console.WriteLine("4. Registrar cliente en cola");
+                Console.WriteLine("5. Ver estado de la cola");
+                Console.WriteLine("6. Atender cliente y procesar venta");
+                Console.WriteLine("7. Salir");
+                Console.Write("Opcion: ");
+
+                if (int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    switch (opcion)
+                    {
+                        case 1:
+                            Inventario.Mostrar(catalogo);
+                            break;
+
+                        case 2:
+                            Console.WriteLine("1. Buscar por ID");
+                            Console.WriteLine("2. Buscar por Titulo");
+                            Console.Write("Seleccione una opcion: ");
+                            if (int.TryParse(Console.ReadLine(), out int tipo))
+                            {
+                                if (tipo == 1)
+                                {
+                                    Console.Write("Ingrese el ID: ");
+                                    int.TryParse(Console.ReadLine(), out int idBuscado);
+                                    int pos = Inventario.BuscarPorId(catalogo, idBuscado);
+                                    if (pos != -1)
+                                        Console.WriteLine($"Juego: {catalogo[pos].Nombre} | Precio: ${catalogo[pos].Precio} | Stock: {catalogo[pos].Stock}");
+                                    else
+                                        Console.WriteLine("Juego no encontrado.");
+                                }
+                                else if (tipo == 2)
+                                {
+                                    Console.Write("Ingrese el Titulo: ");
+                                    string tituloBuscado = Console.ReadLine();
+                                    int pos = Inventario.BuscarPorTitulo(catalogo, tituloBuscado);
+                                    if (pos != -1)
+                                        Console.WriteLine($"Juego: {catalogo[pos].Nombre} (ID: {catalogo[pos].ID}) | Precio: ${catalogo[pos].Precio} | Stock: {catalogo[pos].Stock}");
+                                    else
+                                        Console.WriteLine("Juego no encontrado.");
+                                }
+                            }
+                            break;
+
+                        case 3:
+                            Console.Write("Pasillo (1 a 3): ");
+                            int.TryParse(Console.ReadLine(), out int pasillo);
+                            Console.Write("Estante (1 a 3): ");
+                            int.TryParse(Console.ReadLine(), out int estante);
+                            Deposito.ConsultarUbicacion(gondolas, pasillo - 1, estante - 1);
+                            break;
+
+                        case 4:
+                            AtencionClientes.RegistrarCliente(colaClientes, ref contadorClientes);
+                            break;
+
+                        case 5:
+                            AtencionClientes.MostrarEstadoCola(colaClientes);
+                            break;
+
+                        case 6:
+                            AtencionClientes.AtenderCliente(colaClientes, catalogo);
+                            break;
+
+                        case 7:
+                            Console.WriteLine("Saliendo del sistema...");
+                            break;
+
+                        default:
+                            Console.WriteLine("Opcion invalida.");
+                            break;
+                    }
+                }
+            } while (opcion != 7);
+
+        }
+
+
+    }
+
+}
