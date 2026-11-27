@@ -1,0 +1,36 @@
+Funciones en C#
+ACTIVIDAD TEÓRICA:
+
+1. ¿Cuál es la diferencia principal entre un método void y uno que devuelve un int?
+RTA: La diferencia principal es que un Void es un bloque de código que realiza una acción pero no devuelve ningún valor al llamador a diferencia a uno que si devuelve al llamador un int.
+
+2. ¿Qué sucede con el código de un método que se encuentra escrito debajo de una instrucción
+return?
+RTA: Cualquier código después del return es considerado "código inalcanzable" por el compilador.
+
+3. ¿Por qué es recomendable usar nombres de verbos para las funciones?
+RTA: Porque facilita el proceso a la hora de arreglar errores, ayuda a diferenciar los métodos de otras funciones, además de ayudar con la legibilidad del código 
+
+4. Si paso un int x = 10 a un método Duplicar(int n) por valor, ¿qué valor tendrá x después de la
+llamada si dentro del método hice n = n * 2?
+RTA: El valor seguirá siendo 10.
+
+5. Explica la diferencia entre un Parámetro y un Argumento.
+RTA: la diferencia es que un parámetro es un tipo especial de variable que se utiliza en un método o función para recibir datos que le pasen quien lo llama. Mientras que al llamar un método, se le envían datos mediante argumentos, el cual es el valor o expresión real que se le proporciona a un método, constructor o delegado al llamarlo.
+
+6. ¿En qué situación preferirías usar un parámetro out en lugar de un ref?
+RTA: en la situación de tener que devolver múltiples valores y no necesitas que la variable tenga un valor inicial antes de la llamada, un parametro out es preferido ya que es su especialidad a diferencia de el ref.
+
+
+7. ¿Cuál es la diferencia entre un método y una función?
+RTA: tanto las funciones como los métodos son bloques que realizan tareas específicas, pero la diferencia viene en cómo se definen, utilizan y se asocian con objetos o clases.
+
+8. ¿Es posible realizar una sobrecarga de un método cambiando solamente el modificador static por uno de instancia? Justifica.
+RTA: No es posible realizar una sobrecarga de métodos cambiando solamente el modificar 
+
+7. Describe cómo la modularización ayuda a cumplir el principio DRY (Don't Repeat Yourself).
+RTA: la modularización ayuda a cumplir el principio DRY al proporcionar una estructura para encapsular la lógica repetitiva en componentes, funciones y módulos independientes y reutilizables.
+
+8. En términos de memoria, ¿qué se almacena en el Stack cuando pasamos un parámetro con la
+palabra clave ref?
+RTA: la dirección de memoria de la variable original
