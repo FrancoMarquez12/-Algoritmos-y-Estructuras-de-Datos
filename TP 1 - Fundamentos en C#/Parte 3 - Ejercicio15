@@ -1,0 +1,44 @@
+using System;
+
+Console.Write("ingrese su edad: ");
+int.TryParse(Console.ReadLine(), out int edad);
+if (edad < 18 || edad > 75) { Console.WriteLine("rechazado por edad."); return; }
+
+Console.Write("ingresos mensuales: ");
+double.TryParse(Console.ReadLine(), out double sueldo);
+Console.Write("puntos de credito: ");
+int.TryParse(Console.ReadLine(), out int puntos);
+Console.Write("monto pedido: ");
+double.TryParse(Console.ReadLine(), out double monto);
+
+double tasa = puntos > 800 ? 0.05 : 0.12;
+if (puntos < 600)
+{
+    Console.Write("tiene aval? (s/n): ");
+    if (Console.ReadLine().ToLower() != "s") return;
+}
+
+int meses;
+double cuota;
+while (true)
+{
+    Console.Write("plazo en meses: ");
+    meses = int.Parse(Console.ReadLine());
+    cuota = (monto * (1 + tasa)) / meses;
+
+    if (cuota <= sueldo * 0.3)
+    {
+        Console.WriteLine("apto para su sueldo.");
+        break;
+    }
+    Console.WriteLine("cuota muy alta! quiere ajustar plazo o cancelar? (a/c)");
+    if (Console.ReadLine().ToLower() == "c") return;
+}
+
+Console.WriteLine("mes , pago , saldo");
+double saldo = monto * (1 + tasa);
+for (int i = 1; i <= meses; i++)
+{
+    saldo -= cuota;
+    Console.WriteLine($"{i} | ${cuota:F2} | ${Math.Max(0, saldo):F2}");
+}
