@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Ingresa una expresion matematica: ");
+        string expresion = Console.ReadLine();
+
+        if (EstanBalanceados(expresion))
+        {
+            Console.WriteLine("Los parentesis estan balanceados!");
+        }
+        else
+        {
+            Console.WriteLine("Los parentesis no estan balanceados!");
+        }
+    }
+
+    static bool EstanBalanceados(string expresion)
+    {
+        Stack<char> pila = new Stack<char>();
+        foreach (char c in expresion)
+        {
+            if (c == '(')
+            {
+                pila.Push(c);
+            }
+            else if (c == ')')
+            {
+                if (!pila.TryPop(out _))
+                {
+                    return false;
+                }
+            }
+        }
+        return pila.Count == 0;
+    }
+}
