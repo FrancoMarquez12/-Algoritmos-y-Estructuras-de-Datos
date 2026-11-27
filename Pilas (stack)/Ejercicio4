@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+class Accion
+{
+    public string Tipo { get; set; }
+    public string Texto { get; set; }
+
+    public Accion(string tipo, string texto)
+    {
+        Tipo = tipo;
+        Texto = texto;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Stack<Accion> historialAcciones = new Stack<Accion>();
+        string textoPrincipal = "";
+
+        Console.WriteLine("Comandos disponibles: 'escribir', 'deshacer', 'mostrar', 'salir'");
+
+        while (true)
+        {
+            Console.Write("\n> ");
+            string entrada = Console.ReadLine();
+
+            if (entrada.ToLower() == "salir")
+            {
+                break;
+            }
+            else if (entrada.StartsWith("escribir "))
+            {
+                string textoAgregado = entrada.Substring(9);
+                textoPrincipal += textoAgregado;
+                Accion nuevaAccion = new Accion("ESCRIBIR", textoAgregado);
+                historialAcciones.Push(nuevaAccion);
+            }
+            else if (entrada.ToLower() == "deshacer")
+            {
+                if (historialAcciones.TryPop(out Accion ultimaAccion))
+                {
+                    if (ultimaAccion.Tipo == "ESCRIBIR")
+                    {
+                        int longitudAQuitar = ultimaAccion.Texto.Length;
+                        textoPrincipal = textoPrincipal.Substring(0, textoPrincipal.Length - longitudAQuitar);
+                        Console.WriteLine($"Se deshizo la acción: {ultimaAccion.Tipo} ('{ultimaAccion.Texto}')");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No hay acciones para deshacer.");
+                }
+            }
+            else if (entrada.ToLower() == "mostrar")
+            {
+                Console.WriteLine("Texto actual: \"" + textoPrincipal + "\"");
+            }
+            else
+            {
+                Console.WriteLine("Comando no reconocido.");
+            }
+        }
+    }
+}
