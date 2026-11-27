@@ -1,0 +1,42 @@
+using System;
+using System.IO;
+using System.Text;
+
+class Program
+{
+    static void Main()
+    {
+        string ruta = "tabla_multiplicar.txt";
+
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(ruta, false, Encoding.UTF8))
+            {
+                sw.WriteLine("TABLA DEL 7:");
+                for (int i = 1; i <= 10; i++)
+                {
+                    int resultado = 7 * i;
+                    sw.Write($"{resultado}");
+                    if (i < 10)
+                    {
+                        sw.Write(" - ");
+                    }
+                }
+
+                sw.WriteLine();
+                sw.WriteLine("\n TABLA DEL 7 COMPLETA:");
+
+                for (int i = 1; i <= 10; i++)
+                {
+                    sw.WriteLine($"7 x {i} = {7 * i}");
+                }
+            }
+
+            Console.WriteLine($"Tabla guardada con exito en '{ruta}'.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error al escribir el archivo: {ex.Message}");
+        }
+    }
+}
