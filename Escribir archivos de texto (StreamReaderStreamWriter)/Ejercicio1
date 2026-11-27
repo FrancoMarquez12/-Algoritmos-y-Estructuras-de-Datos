@@ -1,25 +1,23 @@
 using System;
 using System.IO;
-
 class Program
 {
-    static void Main()
-    {
-        string ruta = "diario.txt";
-        Console.Write("Ingrese su nombre: ");
-        string nombre = Console.ReadLine();
-        Console.Write("Ingrese su frase favorita: ");
-        string frase = Console.ReadLine();
+static void Main()
+{
+string ruta = "diario.txt";
+// Paso 1: Sobrescribir o crear el archivo (append = false)
+using (StreamWriter sw = new StreamWriter(ruta))
+{
+sw.WriteLine("--- DIARIO PERSONAL ---");
+sw.WriteLine("Usuario: Juan Pérez");
+sw.WriteLine("Frase: El conocimiento es poder.");
+}
+// Paso 2: Añadir datos al final (append = true)
+using (StreamWriter sw = new StreamWriter(ruta, true))
 
-        using (StreamWriter sw = new StreamWriter(ruta, false))
-        {
-            sw.WriteLine($"Usuario: {nombre}");
-            sw.WriteLine($"Frase: {frase}");
-        }
-        using (StreamWriter sw = new StreamWriter(ruta, true))
-        {
-            sw.WriteLine($"Ultima actualizacion: {DateTime.Now}");
-        }
-        Console.WriteLine("Archivo guardado correctamente.");
-    }
+{
+sw.WriteLine($"Última actualización: {DateTime.Now}");
+}
+Console.WriteLine("Archivo guardado correctamente.");
+}
 }
