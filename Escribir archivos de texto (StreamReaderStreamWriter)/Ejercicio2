@@ -1,0 +1,40 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Ingrese la ruta del archivo a leer: ");
+        string ruta = Console.ReadLine();
+        StreamReader sr = null;
+        try
+        {
+            sr = new StreamReader(ruta);
+            string linea = sr.ReadLine();
+            int numeroLinea = 1;
+            while (linea != null)
+            {
+                Console.WriteLine($"{numeroLinea}: {linea}");
+                linea = sr.ReadLine();
+                numeroLinea++;
+            }
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Error: El archivo especificado no existe.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ocurrio un error inesperado: {ex.Message}");
+        }
+        finally
+        {
+            if (sr != null)
+            {
+                sr.Close();
+                Console.WriteLine("\n[Recursos liberados correctamente en el bloque finally]");
+            }
+        }
+    }
+}
