@@ -1,0 +1,42 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        string ruta = "diario.txt";
+
+        if (!File.Exists(ruta))
+        {
+            Console.WriteLine("El archivo no existe.");
+            return;
+        }
+
+        using (StreamReader sr = new StreamReader(ruta))
+        {
+            if (sr.Peek() >= 0)
+            {
+                string contenidoCompleto = sr.ReadToEnd();
+
+                Console.WriteLine("CONTENIDO DEL ARCHIVO:");
+                Console.WriteLine(contenidoCompleto);
+
+                int totalCaracteres = contenidoCompleto.Length;
+
+                string[] palabras = contenidoCompleto.Split(
+                    new char[] { ' ', '\r', '\n' },
+                    StringSplitOptions.RemoveEmptyEntries
+                );
+
+                Console.WriteLine("ESTADÍSTICAS:");
+                Console.WriteLine($"Total de caracteres: {totalCaracteres}");
+                Console.WriteLine($"Total de palabras: {palabras.Length}");
+            }
+            else
+            {
+                Console.WriteLine("El archivo easta vacio.");
+            }
+        }
+    }
+}
