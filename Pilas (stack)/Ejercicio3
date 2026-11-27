@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Stack<string> historial = new Stack<string>();
+        string comando = "";
+
+        Console.WriteLine("Navegador iniciado. Escribe una URL, 'atras' para volver o 'salir' para cerrar.");
+
+        while (true)
+        {
+            Console.Write("\nComando o URL: ");
+            comando = Console.ReadLine();
+
+            if (comando.ToLower() == "salir")
+            {
+                break;
+            }
+            else if (comando.ToLower() == "atras")
+            {
+                if (historial.Count > 1)
+                {
+                    historial.Pop();
+                    Console.WriteLine("Volviendo a: " + historial.Peek());
+                }
+                else if (historial.Count == 1)
+                {
+                    historial.Pop();
+                    Console.WriteLine("Ya no hay paginas anteriores en el historial.");
+                }
+                else
+
+                {
+                    Console.WriteLine("El historial esta vacio.");
+                }
+            }
+            else
+            {
+                historial.Push(comando);
+                Console.WriteLine("Visitando: " + historial.Peek());
+            }
+        }
+    }
+}
