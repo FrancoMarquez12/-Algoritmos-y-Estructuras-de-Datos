@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Ingresa una palabra o frase: ");
+        string texto = Console.ReadLine();
+        Stack<char> pilaCaracteres = new Stack<char>();
+
+        foreach (char c in texto)
+        {
+            pilaCaracteres.Push(c);
+        }
+
+        string textoInvertido = "";
+        while (pilaCaracteres.Count > 0)
+        {
+            textoInvertido += pilaCaracteres.Pop();
+        }
+
+        Console.WriteLine("Invertido: " + textoInvertido);
+    }
+}
